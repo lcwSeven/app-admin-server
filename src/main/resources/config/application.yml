@@ -5,7 +5,7 @@ spring:
   application:
     name: app-admin-server
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/test
+    url: jdbc:mysql://127.0.0.1:3306/app-admin
     data-username: root
     data-password: 123456
     tomcat:
