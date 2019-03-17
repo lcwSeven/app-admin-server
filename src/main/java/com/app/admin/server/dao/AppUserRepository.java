@@ -11,4 +11,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AppUserRepository extends MyBatisBaseDao<AppUser, Integer> {
+
+    /**
+     * 根据用户名查询用户
+     *
+     * @param userName 用户名
+     * @return 返回
+     */
+    AppUser selectByUserName(String userName);
 }

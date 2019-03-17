@@ -19,7 +19,7 @@ public class UserLoginController {
     @Autowired
     private UserLoginService userLoginService;
 
-    @PostMapping("/user/login")
+    @PostMapping("/v1/user/login")
     public ServerResponse userLogin(@Param("userName") String userName, @Param("password") String password) {
         return userLoginService.userLogin(userName, password);
     }

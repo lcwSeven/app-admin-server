@@ -2,11 +2,13 @@ package com.app.admin.server.bean;
 
 import com.app.admin.server.constant.ResponseEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * @author : liucaiwen
  * @date : 2019/3/17 12:30
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServerResponse<T> {
 
     private String retCode;
