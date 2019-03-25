@@ -1,7 +1,15 @@
 package com.app.admin.server.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * app_user
@@ -9,7 +17,7 @@ import java.util.Date;
  * @author liucaiwen
  * @date 2019/03/17
  */
-public class AppUser implements Serializable {
+public class AppUser implements Serializable, UserDetails {
     /**
      * 主键ID
      */
@@ -34,6 +42,8 @@ public class AppUser implements Serializable {
      * 手机号
      */
     private String phone;
+
+    List<Role> roles;
 
     /**
      * 用户角色
@@ -60,19 +70,13 @@ public class AppUser implements Serializable {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
-    }
+
 
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
+    public void setPassword(String userPassword) {
         this.userPassword = userPassword;
     }
 
@@ -114,5 +118,45 @@ public class AppUser implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+        }
+        return authorities;
+    }
+
+    @JsonIgnore
+    @Override
+    public String getPassword() {
+        return userPassword;
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
