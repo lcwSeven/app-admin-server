@@ -1,6 +1,7 @@
 package com.app.admin.server.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,107 +19,43 @@ import java.util.List;
  * @date 2019/03/17
  */
 public class AppUser implements Serializable, UserDetails {
+
     /**
-     * 主键ID
+     * 用户ID
      */
     private Integer userId;
-
     /**
-     * 用户名
+     * 用户姓名
      */
-    private String userName;
-
-    /**
-     * 用户密码 MD5加密
-     */
-    private String userPassword;
-
-    /**
-     * 邮箱
-     */
-    private String email;
-
+    private String name;
     /**
      * 手机号
      */
     private String phone;
-
-    List<Role> roles;
-
     /**
-     * 用户角色
+     * 地址
      */
-    private String role;
-
+    private String address;
     /**
-     * 创建时间
+     * 是否禁用
      */
-    private Date createTime;
-
+    private boolean enabled;
     /**
-     * 最后一次更新时间
+     * 用户名
      */
-    private Date updateTime;
-
-    private static final long serialVersionUID = 1L;
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+    private String userName;
+    /**
+     * 密码
+     */
+    private String password;
+    /**
+     * 备注
+     */
+    private String remark;
+    /**
+     * 角色列表
+     */
+    private List<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -132,7 +69,7 @@ public class AppUser implements Serializable, UserDetails {
     @JsonIgnore
     @Override
     public String getPassword() {
-        return userPassword;
+        return password;
     }
 
     @Override
@@ -140,16 +77,19 @@ public class AppUser implements Serializable, UserDetails {
         return userName;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -157,6 +97,68 @@ public class AppUser implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
+    }
+
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

@@ -1,6 +1,6 @@
 package com.app.admin.server.service;
 
-import com.app.admin.server.bean.Menu;
+import com.app.admin.server.bean.AppMenu;
 import java.util.List;
 
 /**
@@ -13,5 +13,5 @@ public interface MenuService {
      * 获取所有菜单
      * @return
      */
-    List<Menu> getAllMenu();
+    List<AppMenu> getAllMenu();
 }

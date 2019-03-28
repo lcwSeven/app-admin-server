@@ -1,183 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.app.admin.server.dao.AppUserRepository">
+<mapper namespace="com.app.admin.server.dao.AppUserMapper">
     <resultMap id="BaseResultMap" type="com.app.admin.server.bean.AppUser">
         <id column="user_id" jdbcType="INTEGER" property="userId"/>
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
-        <result column="user_password" jdbcType="VARCHAR" property="userPassword"/>
-        <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="phone" jdbcType="VARCHAR" property="phone"/>
-        <result column="role" jdbcType="VARCHAR" property="role"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="phone" jdbcType="CHAR" property="phone"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="enabled" jdbcType="BIT" property="enabled"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
     </resultMap>
-    <sql id="Base_Column_List">
-      user_id,
-      user_name,
-      user_password,
-      email,
-      phone,
-      role,
-      create_time,
-      update_time
-    </sql>
+    <resultMap id="lazyLoadRoles" type="com.app.admin.server.bean.AppUser" extends="BaseResultMap">
+        <collection property="roles" ofType="com.app.admin.server.bean.Role" select="com.app.admin.server.dao.AppUserMapper.getRolesByHrId"
+                    column="id"></collection>
+    </resultMap>
+    <resultMap id="eagerLoadRoles" type="com.app.admin.server.bean.AppUser" extends="BaseResultMap">
+        <collection property="roles" ofType="com.app.admin.server.bean.Role">
+            <id property="roleId" column="role_id"/>
+            <result property="roleName" column="role_name"/>
+            <result property="roleZhName" column="role_zh_name"/>
+        </collection>
+    </resultMap>
 
-    <sql id="Where_Cause">
-        where
-        <if test="userId != null">
-            and user_id = #{userId,jdbcType=INTEGER}
-        </if>
-
-        <if test="userName != null">
-            and user_name = #{userName,jdbcType=VARCHAR}
-        </if>
-
-        <if test="userPassword != null">
-            and user_password = #{userPassword,jdbcType=VARCHAR}
-        </if>
-
-        <if test="email != null">
-            and email = #{email,jdbcType=VARCHAR}
-        </if>
-
-        <if test="phone != null">
-            and phone = #{phone,jdbcType=VARCHAR}
-        </if>
-
-        <if test="role != null">
-            and role = #{role,jdbcType=VARCHAR},
-        </if>
-
-        <if test="createTime != null">
-            and create_time= #{createTime,jdbcType=TIMESTAMP},
-        </if>
-
-        <if test="updateTime != null">
-            and update_time= #{updateTime,jdbcType=TIMESTAMP},
-        </if>
-
-    </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
+    <select id="loadUserByUsername" resultMap="lazyLoadRoles">
+        select * from app_user where user_name=#{userName}
+    </select>
+    <select id="loadUserByPrimaryKey" parameterType="java.lang.Integer" resultMap="lazyLoadRoles">
+        select *
         from app_user
         where user_id = #{userId,jdbcType=INTEGER}
     </select>
-    <select id="select" parameterType="com.app.admin.server.bean.AppUser" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from app_user
-        <include refid="Where_Cause"/>
+
+    <select id="getRolesByUserId" resultType="com.app.admin.server.bean.Role">
+        SELECT r.* FROM app_user_role ur,app_role r where ur.role_id=r.role_id AND ur.user_id=#{userId}
     </select>
-    <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from app_user
-        where user_name = #{userName,jdbcType=VARCHAR}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from app_user
-    where user_id = #{userId,jdbcType=INTEGER}
-  </delete>
-    <insert id="insert" parameterType="com.app.admin.server.bean.AppUser">
-    insert into app_user (user_id, user_name, user_password, 
-      email, phone, `role`, 
-      create_time, update_time)
-    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
-    <insert id="insertSelective" parameterType="com.app.admin.server.bean.AppUser">
-        insert into app_user
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
-                user_id,
-            </if>
-            <if test="userName != null">
-                user_name,
-            </if>
-            <if test="userPassword != null">
-                user_password,
-            </if>
-            <if test="email != null">
-                email,
-            </if>
-            <if test="phone != null">
-                phone,
-            </if>
-            <if test="role != null">
-                `role`,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-            <if test="updateTime != null">
-                update_time,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
-                #{userId,jdbcType=INTEGER},
-            </if>
-            <if test="userName != null">
-                #{userName,jdbcType=VARCHAR},
-            </if>
-            <if test="userPassword != null">
-                #{userPassword,jdbcType=VARCHAR},
-            </if>
-            <if test="email != null">
-                #{email,jdbcType=VARCHAR},
-            </if>
-            <if test="phone != null">
-                #{phone,jdbcType=VARCHAR},
-            </if>
-            <if test="role != null">
-                #{role,jdbcType=VARCHAR},
-            </if>
-            <if test="createTime != null">
-                #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.app.admin.server.bean.AppUser">
-        update app_user
-        <set>
-            <if test="userName != null">
-                user_name = #{userName,jdbcType=VARCHAR},
-            </if>
-            <if test="userPassword != null">
-                user_password = #{userPassword,jdbcType=VARCHAR},
-            </if>
-            <if test="email != null">
-                email = #{email,jdbcType=VARCHAR},
-            </if>
-            <if test="phone != null">
-                phone = #{phone,jdbcType=VARCHAR},
-            </if>
-            <if test="role != null">
-                `role` = #{role,jdbcType=VARCHAR},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-        </set>
-        where user_id = #{userId,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.app.admin.server.bean.AppUser">
-    update app_user
-    set user_name = #{userName,jdbcType=VARCHAR},
-      user_password = #{userPassword,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      `role` = #{role,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where user_id = #{userId,jdbcType=INTEGER}
-  </update>
+
 </mapper>

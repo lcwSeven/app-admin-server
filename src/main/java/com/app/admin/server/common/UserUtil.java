@@ -11,4 +11,5 @@ public class UserUtil {
     public static AppUser getCurrentUser(){
         return (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
+
 }

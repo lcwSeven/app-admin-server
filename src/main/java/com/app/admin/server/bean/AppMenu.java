@@ -6,7 +6,7 @@ import java.util.List;
  * @author: liucaiwen
  * @date: 2019/3/25 22:37
  */
-public class Menu {
+public class AppMenu extends MenuMeta{
 
     /**
      * 资源ID
@@ -32,12 +32,17 @@ public class Menu {
     /**
      * 父菜单ID
      */
-    private Long parentId;
+    private Integer menuParentId;
+
+
+    private MenuMeta meta;
+
+    private boolean enabled;
 
     /**
      * 子菜单
      */
-    private List<Menu> children;
+    private List<AppMenu> children;
     /**
      * 角色
      */
@@ -92,19 +97,35 @@ public class Menu {
     }
 
 
-    public Long getParentId() {
-        return parentId;
+    public Integer getMenuParentId() {
+        return menuParentId;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setMenuParentId(Integer menuParentId) {
+        this.menuParentId = menuParentId;
     }
 
-    public List<Menu> getChildren() {
+    public MenuMeta getMeta() {
+        return meta;
+    }
+
+    public void setMeta(MenuMeta meta) {
+        this.meta = meta;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public List<AppMenu> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Menu> children) {
+    public void setChildren(List<AppMenu> children) {
         this.children = children;
     }
 }

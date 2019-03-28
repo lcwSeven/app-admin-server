@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2019/03/17
  */
 
-public interface MyBatisBaseDao<Model, PK extends Serializable> {
+public interface MyBatisBaseMapper<Model, PK extends Serializable> {
 
     /**
      * 根据主键删除对象

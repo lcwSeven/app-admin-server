@@ -1,6 +1,6 @@
 package com.app.admin.server.service.impl;
 
-import com.app.admin.server.bean.Menu;
+import com.app.admin.server.bean.AppMenu;
 import com.app.admin.server.service.MenuService;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class MenuServiceImpl implements MenuService{
     @Override
-    public List<Menu> getAllMenu() {
+    public List<AppMenu> getAllMenu() {
         return null;
     }
 }
