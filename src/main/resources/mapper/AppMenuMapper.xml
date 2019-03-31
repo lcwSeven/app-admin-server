@@ -15,7 +15,7 @@
             <result column="keepAlive" property="keepAlive"/>
             <result column="requireAuth" property="requireAuth"/>
         </association>
-        <collection property="roles" ofType="com.app.admin.server.bean.Role">
+        <collection property="appRoles" ofType="com.app.admin.server.bean.AppRole">
             <id column="role_id" property="roleId"/>
             <result column="role_name" property="roleName"/>
             <result column="role_zh_name" property="roleZhName"/>

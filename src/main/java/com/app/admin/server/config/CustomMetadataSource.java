@@ -1,7 +1,7 @@
 package com.app.admin.server.config;
 
 import com.app.admin.server.bean.AppMenu;
-import com.app.admin.server.bean.Role;
+import com.app.admin.server.bean.AppRole;
 import com.app.admin.server.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
@@ -31,8 +31,8 @@ public class CustomMetadataSource implements FilterInvocationSecurityMetadataSou
         List<AppMenu> allMenu = menuService.getAllMenu();
         for (AppMenu menu : allMenu) {
             if (antPathMatcher.match(menu.getUrl(), requestUrl)
-                    && menu.getRoles().size() > 0) {
-                List<Role> roles = menu.getRoles();
+                    && menu.getAppRoles().size() > 0) {
+                List<AppRole> roles = menu.getAppRoles();
                 int size = roles.size();
                 String[] values = new String[size];
                 for (int i = 0; i < size; i++) {

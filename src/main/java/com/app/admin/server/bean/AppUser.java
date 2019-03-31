@@ -1,7 +1,6 @@
 package com.app.admin.server.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,7 +16,7 @@ import java.util.List;
  * @author liucaiwen
  * @date 2019/03/17
  */
-public class AppUser implements Serializable, UserDetails {
+public class AppUser implements UserDetails,Serializable {
 
     /**
      * 用户ID
@@ -55,13 +53,14 @@ public class AppUser implements Serializable, UserDetails {
     /**
      * 角色列表
      */
-    private List<Role> roles;
+    private List<AppRole> appRoles;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+        for (AppRole appRole : appRoles) {
+            authorities.add(new SimpleGrantedAuthority(appRole.getRoleName()));
         }
         return authorities;
     }
@@ -154,11 +153,11 @@ public class AppUser implements Serializable, UserDetails {
         this.remark = remark;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public List<AppRole> getAppRoles() {
+        return appRoles;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setAppRoles(List<AppRole> appRoles) {
+        this.appRoles = appRoles;
     }
 }

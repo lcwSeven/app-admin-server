@@ -1,31 +1,34 @@
 package com.app.admin.server.bean;
 
+import java.io.Serializable;
+
 /**
- * @author: liucaiwen
- * @date: 2019/3/25 22:38
+ * app_role
+ * @author liucaiwen
+ * @date 2019/03/31
  */
-public class Role {
-
+public class AppRole implements Serializable{
     /**
-     * 角色ID
+     * 主键ID
      */
-    private Long roleId;
-
-    /**
-     * 角色英文名称
-     */
-    private String roleName;
+    private Integer roleId;
 
     /**
      * 角色名称
      */
+    private String roleName;
+
+    /**
+     * 角色中文名称
+     */
     private String roleZhName;
 
-    public Long getRoleId() {
+
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 
@@ -44,4 +47,10 @@ public class Role {
     public void setRoleZhName(String roleZhName) {
         this.roleZhName = roleZhName;
     }
+
+
+
+
+
+
 }

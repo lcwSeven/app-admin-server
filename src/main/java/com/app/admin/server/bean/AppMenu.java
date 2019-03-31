@@ -46,7 +46,7 @@ public class AppMenu extends MenuMeta{
     /**
      * 角色
      */
-    private List<Role> roles;
+    private List<AppRole> appRoles;
 
     public String getUrl() {
         return url;
@@ -56,12 +56,12 @@ public class AppMenu extends MenuMeta{
         this.url = url;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public List<AppRole> getAppRoles() {
+        return appRoles;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setAppRoles(List<AppRole> appRoles) {
+        this.appRoles = appRoles;
     }
 
     public Long getMenuId() {

@@ -11,29 +11,31 @@
         <result column="enabled" jdbcType="BIT" property="enabled"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
     </resultMap>
-    <resultMap id="lazyLoadRoles" type="com.app.admin.server.bean.AppUser" extends="BaseResultMap">
-        <collection property="roles" ofType="com.app.admin.server.bean.Role" select="com.app.admin.server.dao.AppUserMapper.getRolesByHrId"
-                    column="id"></collection>
-    </resultMap>
-    <resultMap id="eagerLoadRoles" type="com.app.admin.server.bean.AppUser" extends="BaseResultMap">
-        <collection property="roles" ofType="com.app.admin.server.bean.Role">
-            <id property="roleId" column="role_id"/>
-            <result property="roleName" column="role_name"/>
-            <result property="roleZhName" column="role_zh_name"/>
+    <resultMap id="lazyLoadRoles" type="com.app.admin.server.bean.AppUser"
+               extends="BaseResultMap">
+        <collection property="appRoles"
+                    ofType="com.app.admin.server.bean.AppRole"
+                    select="com.app.admin.server.dao.AppUserMapper.getRolesByUserId"
+                    column="userId=user_id">
         </collection>
     </resultMap>
+
 
     <select id="loadUserByUsername" resultMap="lazyLoadRoles">
         select * from app_user where user_name=#{userName}
     </select>
+
     <select id="loadUserByPrimaryKey" parameterType="java.lang.Integer" resultMap="lazyLoadRoles">
         select *
         from app_user
         where user_id = #{userId,jdbcType=INTEGER}
     </select>
 
-    <select id="getRolesByUserId" resultType="com.app.admin.server.bean.Role">
-        SELECT r.* FROM app_user_role ur,app_role r where ur.role_id=r.role_id AND ur.user_id=#{userId}
+    <select id="getRolesByUserId"  resultType="com.app.admin.server.bean.AppRole">
+        select r.role_id as roleId,r.role_name as roleName,r.role_zh_name as roleZhName
+        from app_user_role ur,app_role r
+        where ur.role_id=r.role_id
+        and ur.user_id=#{userId,jdbcType=INTEGER}
     </select>
 
 </mapper>
