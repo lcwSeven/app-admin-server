@@ -9,5 +9,4 @@
   <sql id="Base_Column_List">
     role_id, role_name, role_zh_name
   </sql>
-
 </mapper>

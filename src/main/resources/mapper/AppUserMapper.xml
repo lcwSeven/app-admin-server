@@ -19,23 +19,103 @@
                     column="userId=user_id">
         </collection>
     </resultMap>
-
-
     <select id="loadUserByUsername" resultMap="lazyLoadRoles">
         select * from app_user where user_name=#{userName}
     </select>
-
     <select id="loadUserByPrimaryKey" parameterType="java.lang.Integer" resultMap="lazyLoadRoles">
         select *
         from app_user
         where user_id = #{userId,jdbcType=INTEGER}
     </select>
-
-    <select id="getRolesByUserId"  resultType="com.app.admin.server.bean.AppRole">
-        select r.role_id as roleId,r.role_name as roleName,r.role_zh_name as roleZhName
+    <select id="getRolesByUserId" resultType="com.app.admin.server.bean.AppRole">
+        select r.role_id as roleId,
+        r.role_name as roleName,
+        r.role_zh_name as roleZhName
         from app_user_role ur,app_role r
         where ur.role_id=r.role_id
         and ur.user_id=#{userId,jdbcType=INTEGER}
     </select>
+    <insert id="insertAppUser" parameterType="com.app.admin.server.bean.AppUser">
+        insert into app_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="password != null">
+                `password`,
+            </if>
+            <if test="phone != null">
+                `phone`,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="enabled != null">
+                enabled,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
 
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="enabled != null">
+                #{enabled,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateAppUser" parameterType="com.app.admin.server.bean.AppUser">
+        update app_user
+        <set>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="enabled != null">
+                #{enabled,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
 </mapper>

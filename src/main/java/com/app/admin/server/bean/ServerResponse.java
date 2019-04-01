@@ -64,7 +64,7 @@ public class ServerResponse<T> {
     }
 
     public static <T> ServerResponse<T> buildBySuccess(T data) {
-        return new ServerResponse<T>(ResponseEnum.SUCCESS.getCode(), data);
+        return new ServerResponse<T>(ResponseEnum.SUCCESS.getCode(),ResponseEnum.SUCCESS.getMsg(), data);
     }
 
     public static <T> ServerResponse<T> buildBySuccess(String retMsg, T data) {

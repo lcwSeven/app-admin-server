@@ -6,11 +6,11 @@ package com.app.admin.server.constant;
  */
 public enum ResponseEnum {
 
-    SUCCESS("00000", "SUCCESS"),
+    SUCCESS("00000", "success"),
 
-    ERROR("00001","ERROR"),
+    ERROR("00001", "error"),
 
-    NEET_LOGIN("00002", "未登录");
+    NEED_LOGIN("need_login", "未登录");
 
 
     private String code;

@@ -27,10 +27,11 @@ public interface AppUserMapper {
 
     /**
      * 通过主键查询
+     *
      * @param userId 主键ID
      * @return 返回
      */
-     AppUser loadUserByPrimaryKey(@Param("userId") Integer userId);
+    AppUser loadUserByPrimaryKey(@Param("userId") Integer userId);
 
     /**
      * 根据用户ID 获取该用户角色
@@ -39,4 +40,20 @@ public interface AppUserMapper {
      * @return 角色列表
      */
     List<AppRole> getRolesByUserId(@Param("userId") Integer userId);
+
+    /**
+     * 新增用户
+     *
+     * @param appUser 用户信息
+     * @return 返回
+     */
+    int insertAppUser(AppUser appUser);
+
+    /**
+     * 更新用户
+     *
+     * @param appUser 用户信息
+     * @return 返回
+     */
+    int updateAppUser(AppUser appUser);
 }

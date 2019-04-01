@@ -3,7 +3,6 @@ package com.app.admin.server.config;
 import com.app.admin.server.bean.ServerResponse;
 import com.app.admin.server.common.UserUtil;
 import com.app.admin.server.service.UserDetailService;
-import com.app.admin.server.service.impl.UserDetailServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
