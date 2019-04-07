@@ -1,6 +1,7 @@
 package com.app.admin.server.service.impl;
 
 import com.app.admin.server.bean.AppMenu;
+import com.app.admin.server.common.UserUtil;
 import com.app.admin.server.dao.AppMenuMapper;
 import com.app.admin.server.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,10 @@ public class MenuServiceImpl implements MenuService{
     @Override
     public List<AppMenu> getAllMenu() {
         return appMenuMapper.getAllMenu();
+    }
+
+    @Override
+    public List<AppMenu> getMenusByUserId() {
+        return appMenuMapper.getMenusByUserId(UserUtil.getCurrentUser().getUserId());
     }
 }

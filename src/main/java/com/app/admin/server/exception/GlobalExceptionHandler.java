@@ -1,9 +1,12 @@
 package com.app.admin.server.exception;
 
 import com.app.admin.server.bean.ServerResponse;
+import com.app.admin.server.constant.ResponseEnum;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 /**
@@ -13,13 +16,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = MyException.class)
+    @ExceptionHandler(value = Throwable.class)
+    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ServerResponse handlerResponseException(Exception e) {
-        if (e instanceof MyException) {
-            return ServerResponse.buildByErrorMsg(e.getMessage());
+    public ServerResponse handlerResponseException(Throwable e) {
+        if (e instanceof BusinessException) {
+            ResponseEnum responseEnum = ((BusinessException) e).getResponseEnum();
+            return ServerResponse.buildByEnum(responseEnum);
         }
-        return null;
+        return ServerResponse.buildByErrorMsg(e.getMessage());
     }
 
 }

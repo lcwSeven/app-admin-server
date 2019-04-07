@@ -40,7 +40,22 @@
         select m.*,r.`role_id` as roleId,r.`role_name` as roleName,r.`role_zh_name` as roleZhName from app_menu m left join app_menu_role mr on m.`menu_id`=mr.`menu_id` left join app_role r on mr.`role_id`=r.`role_id` WHERE m.`enabled`=true order by m.`menu_id` desc
     </select>
     <select id="getMenusByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select m1.`menu_id`,m1.`path`,m1.`component`,m1.`name`,m1.`require_auth`,m2.`component` as component2,m2.`keep_alive` as keepAlive2,m2.`name` as name2,m2.`path` as path2,m2.`require_auth` as requireAuth2 from app_menu m1,app_menu m2 where m1.`menu_id`=m2.`menu_parent_id` and m1.`menu_id`!=1 and m2.`menu_id` in(select mr.`menu_id` from app_user_role u_r,app_menu_role mr where u_r.`role_id`=mr.`role_id` and u_r.`user_id`=#{userId}) and m2.`enabled`=true order by m1.`menu_id`,m2.`menu_id`
+        select m1.`menu_id`,m1.`path`,m1.`component`,
+        m1.`name`,m1.`require_auth`,
+        m2.`component` as component2,
+        m2.`keep_alive` as keepAlive2,
+        m2.`name` as name2,m2.`path` as path2,
+        m2.`require_auth` as requireAuth2
+        from app_menu m1,app_menu m2
+        where m1.`menu_id`=m2.`menu_parent_id`
+        and m1.`menu_id`!=1
+        and m2.`menu_id`
+        in(select mr.`menu_id`
+        from app_user_role u_r,app_menu_role mr
+        where u_r.`role_id`=mr.`role_id`
+        and u_r.`user_id`=#{userId})
+        and m2.`enabled`=true
+        order by m1.`menu_id`,m2.`menu_id`
     </select>
     <select id="menuTree" resultMap="BaseResultMap">
         select m1.`menu_id`,m1.`name`,m2.`menu_id` as menu_id2,m2.`name` as name2,m3.`menu_id` as menu_id3,m3.`name` as name3 from app_menu m1,app_menu m2,app_menu m3 where m1.`menu_id`=m2.`menu_parent_id` and m2.`menu_id`=m3.`menu_parent_id` and m3.`enabled`=true

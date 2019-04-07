@@ -39,7 +39,7 @@ public class ServerResponse<T> {
 
     @JsonIgnore
     public boolean isSuccess() {
-        return this.retCode == ResponseEnum.SUCCESS.getCode();
+        return this.retCode.equals(ResponseEnum.SUCCESS.getCode());
     }
 
     public String getRetCode() {

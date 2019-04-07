@@ -9,4 +9,13 @@
   <sql id="Base_Column_List">
     role_id, role_name, role_zh_name
   </sql>
+  <select id="appRoles" resultMap="BaseResultMap">
+    select * from app_role where role_id != 1
+  </select>
+  <insert id="addNewRole">
+    insert into app_role set role_name=#{roleName},role_zh_name=#{roleZhName}
+  </insert>
+  <delete id="deleteRoleById" parameterType="java.lang.Integer">
+    delete from app_role WHERE role_id=#{roleId}
+  </delete>
 </mapper>

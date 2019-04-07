@@ -2,8 +2,9 @@ package com.app.admin.server.service.impl;
 
 import com.app.admin.server.bean.AppUser;
 import com.app.admin.server.bean.ServerResponse;
+import com.app.admin.server.constant.ResponseEnum;
 import com.app.admin.server.dao.AppUserMapper;
-import com.app.admin.server.exception.MyException;
+import com.app.admin.server.exception.BusinessException;
 import com.app.admin.server.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -61,7 +62,7 @@ public class UserDetailServiceImpl implements UserDetailService {
     private ServerResponse verifyUser(AppUser appUser) {
         //获取用户名
         if (appUserMapper.loadUserByUsername(appUser.getUsername()) != null) {
-            throw new MyException("用户名已存在！");
+            throw new BusinessException("");
         }
         return ServerResponse.buildBySuccess();
     }

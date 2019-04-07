@@ -23,6 +23,8 @@ public class UserBaseController {
     @Autowired
     private UserDetailService userDetailService;
 
+
+
     /**
      * 获取当前用户
      *
@@ -43,9 +45,16 @@ public class UserBaseController {
         return ServerResponse.buildByEnum(ResponseEnum.NEED_LOGIN);
     }
 
+    /**
+     * 用户注册
+     *
+     * @param appUser 用户信息
+     * @return 返回
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ServerResponse registerUser(AppUser appUser) {
         return userDetailService.registerUser(appUser);
     }
+
 
 }
