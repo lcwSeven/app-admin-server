@@ -59,6 +59,11 @@ public class UserDetailServiceImpl implements UserDetailService {
         return ServerResponse.buildByErrorMsg("更新用户失败");
     }
 
+    @Override
+    public ServerResponse getAllAppUsers() {
+        return ServerResponse.buildBySuccess(appUserMapper.getAllAppUsers());
+    }
+
     private ServerResponse verifyUser(AppUser appUser) {
         //获取用户名
         if (appUserMapper.loadUserByUsername(appUser.getUsername()) != null) {

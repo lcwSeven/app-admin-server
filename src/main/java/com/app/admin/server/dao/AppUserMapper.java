@@ -56,4 +56,11 @@ public interface AppUserMapper {
      * @return 返回
      */
     int updateAppUser(AppUser appUser);
+
+    /**
+     * 获取所有的用户
+     *
+     * @return
+     */
+    List<AppUser> getAllAppUsers();
 }

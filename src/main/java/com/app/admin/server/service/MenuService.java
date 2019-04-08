@@ -23,4 +23,19 @@ public interface MenuService {
      * @return 返回用户菜单
      */
     List<AppMenu> getMenusByUserId();
+
+    /**
+     * 根据角色ID 获取菜单树
+     *
+     * @param roleId 角色ID
+     * @return 返回用户角色菜单
+     */
+    List<Integer> getMenuTreeByRoleId(Integer roleId);
+
+    /**
+     * 获取菜单树
+     *
+     * @return 返回菜单
+     */
+    List<AppMenu> menuTree();
 }

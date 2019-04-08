@@ -36,7 +36,7 @@ public interface AppMenuMapper {
     /**
      * 根据角色ID 获取菜单
      * @param roleId 角色ID
-     * @return 返回
+     * @return 返回菜单ID
      */
     List<Integer> getMenusByRoleId(Integer roleId);
 }

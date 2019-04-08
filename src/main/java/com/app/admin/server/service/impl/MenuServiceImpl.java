@@ -14,7 +14,7 @@ import java.util.List;
  * @date: 2019/3/25 23:23
  */
 @Service
-public class MenuServiceImpl implements MenuService{
+public class MenuServiceImpl implements MenuService {
     @Autowired
     private AppMenuMapper appMenuMapper;
 
@@ -26,5 +26,15 @@ public class MenuServiceImpl implements MenuService{
     @Override
     public List<AppMenu> getMenusByUserId() {
         return appMenuMapper.getMenusByUserId(UserUtil.getCurrentUser().getUserId());
+    }
+
+    @Override
+    public List<Integer> getMenuTreeByRoleId(Integer roleId) {
+        return appMenuMapper.getMenusByRoleId(roleId);
+    }
+
+    @Override
+    public List<AppMenu> menuTree() {
+        return appMenuMapper.menuTree();
     }
 }

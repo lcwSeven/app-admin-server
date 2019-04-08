@@ -24,7 +24,6 @@ public class UserBaseController {
     private UserDetailService userDetailService;
 
 
-
     /**
      * 获取当前用户
      *
@@ -56,5 +55,19 @@ public class UserBaseController {
         return userDetailService.registerUser(appUser);
     }
 
+    /**
+     * 获取所有的用户
+     *
+     * @return 返回
+     */
+    @RequestMapping(value = "/appUsers", method = RequestMethod.GET)
+    public ServerResponse getAllUsers() {
+        return userDetailService.getAllAppUsers();
+    }
+
+    @RequestMapping(value = "/system/appUser", method = RequestMethod.PUT)
+    public ServerResponse updateUser(AppUser appUser) {
+        return userDetailService.updateUser(appUser);
+    }
 
 }

@@ -35,6 +35,9 @@
         where ur.role_id=r.role_id
         and ur.user_id=#{userId,jdbcType=INTEGER}
     </select>
+    <select id="getAllAppUsers" resultMap="BaseResultMap">
+        select * from app_user where user_id != 1
+    </select>
     <insert id="insertAppUser" parameterType="com.app.admin.server.bean.AppUser">
         insert into app_menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -101,19 +104,19 @@
                 `name` = #{name,jdbcType=VARCHAR},
             </if>
             <if test="password != null">
-                #{password,jdbcType=VARCHAR},
+                `password` = #{password,jdbcType=VARCHAR},
             </if>
             <if test="phone != null">
-                #{phone,jdbcType=VARCHAR},
+                `phone` = #{phone,jdbcType=VARCHAR},
             </if>
             <if test="address != null">
-                #{address,jdbcType=VARCHAR},
+                `address` = #{address,jdbcType=VARCHAR},
             </if>
             <if test="enabled != null">
-                #{enabled,jdbcType=VARCHAR},
+                `enabled`= #{enabled,jdbcType=BIT},
             </if>
             <if test="remark != null">
-                #{remark,jdbcType=VARCHAR},
+                `remark` =#{remark,jdbcType=VARCHAR},
             </if>
         </set>
         where user_id = #{userId,jdbcType=INTEGER}

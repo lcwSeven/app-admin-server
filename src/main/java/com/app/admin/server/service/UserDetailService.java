@@ -26,4 +26,11 @@ public interface UserDetailService extends UserDetailsService {
      */
     ServerResponse updateUser(AppUser appUser);
 
+    /**
+     * 获取所有的用户
+     *
+     * @return 返回
+     */
+    ServerResponse getAllAppUsers();
+
 }
