@@ -4,6 +4,8 @@ import com.app.admin.server.bean.ServerResponse;
 import com.app.admin.server.common.UserUtil;
 import com.app.admin.server.service.UserDetailService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
@@ -36,6 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationAccessDeniedHandler deniedHandler;
 
+    private final static Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
+
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -62,18 +66,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler((request, response, e) -> {
                     response.setContentType("application/json;charset=utf-8");
                     ServerResponse respBean;
+
                     if (e instanceof BadCredentialsException ||
                             e instanceof UsernameNotFoundException) {
+                        logger.error("账户名或者密码输入错误!",e);
                         respBean = ServerResponse.buildByErrorMsg("账户名或者密码输入错误!");
                     } else if (e instanceof LockedException) {
+                        logger.error("账户被锁定，请联系管理员!",e);
                         respBean = ServerResponse.buildByErrorMsg("账户被锁定，请联系管理员!");
                     } else if (e instanceof CredentialsExpiredException) {
+                        logger.error("密码过期，请联系管理员!",e);
                         respBean = ServerResponse.buildByErrorMsg("密码过期，请联系管理员!");
                     } else if (e instanceof AccountExpiredException) {
+                        logger.error("账户过期，请联系管理员!",e);
                         respBean = ServerResponse.buildByErrorMsg("账户过期，请联系管理员!");
                     } else if (e instanceof DisabledException) {
+                        logger.error("账户被禁用，请联系管理员!",e);
                         respBean = ServerResponse.buildByErrorMsg("账户被禁用，请联系管理员!");
                     } else {
+                        logger.error("登录失败!",e);
                         respBean = ServerResponse.buildByErrorMsg("登录失败!");
                     }
                     response.setStatus(401);

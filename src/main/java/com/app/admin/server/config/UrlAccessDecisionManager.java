@@ -1,6 +1,5 @@
 package com.app.admin.server.config;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;

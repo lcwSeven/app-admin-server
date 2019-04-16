@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.admin.server.dao.AppDataManagerMapper">
+  <resultMap id="BaseResultMap" type="com.app.admin.server.bean.AppDataManager">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="data_one" jdbcType="VARCHAR" property="dataOne" />
+    <result column="data_two" jdbcType="VARCHAR" property="dataTwo" />
+    <result column="data_three" jdbcType="VARCHAR" property="dataThree" />
+    <result column="data_four" jdbcType="VARCHAR" property="dataFour" />
+    <result column="data_five" jdbcType="VARCHAR" property="dataFive" />
+    <result column="data_six" jdbcType="VARCHAR" property="dataSix" />
+    <result column="data_seven" jdbcType="VARCHAR" property="dataSeven" />
+    <result column="data_eight" jdbcType="VARCHAR" property="dataEight" />
+    <result column="data_nine" jdbcType="VARCHAR" property="dataNine" />
+    <result column="data_ten" jdbcType="VARCHAR" property="dataTen" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, data_one, data_two, data_three, data_four, data_five, data_six, data_seven, data_eight, 
+    data_nine, data_ten
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from app_data_manager
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="select" parameterType="com.app.admin.server.bean.AppDataManager" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from app_data_manager ORDER BY id DESC
+   <where>
+      <if test="id != null">
+        and id = #{id}
+      </if>
+      <if test="dataOne != null">
+        and data_one = #{dataOne}
+      </if>
+      <if test="dataTwo != null">
+        and data_two = #{dataTwo}
+      </if>
+      <if test="dataThree != null">
+        and data_three = #{dataThree}
+      </if>
+      <if test="dataFour != null">
+        and data_four = #{dataFour}
+      </if>
+      <if test="dataFive != null">
+        and data_five = #{dataFive}
+      </if>
+      <if test="dataSix != null">
+       and data_six = #{dataSix}
+      </if>
+      <if test="dataSeven != null">
+        and data_seven = #{dataSeven}
+      </if>
+      <if test="dataEight != null">
+       and data_eight = #{dataEight}
+      </if>
+      <if test="dataNine != null">
+        and data_nine=#{dataNine}
+      </if>
+      <if test="dataTen != null">
+        and data_ten=#{dataTen}
+      </if>
+   </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from app_data_manager
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.app.admin.server.bean.AppDataManager">
+    insert into app_data_manager
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dataOne != null">
+        data_one,
+      </if>
+      <if test="dataTwo != null">
+        data_two,
+      </if>
+      <if test="dataThree != null">
+        data_three,
+      </if>
+      <if test="dataFour != null">
+        data_four,
+      </if>
+      <if test="dataFive != null">
+        data_five,
+      </if>
+      <if test="dataSix != null">
+        data_six,
+      </if>
+      <if test="dataSeven != null">
+        data_seven,
+      </if>
+      <if test="dataEight != null">
+        data_eight,
+      </if>
+      <if test="dataNine != null">
+        data_nine,
+      </if>
+      <if test="dataTen != null">
+        data_ten,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dataOne != null">
+        #{dataOne,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTwo != null">
+        #{dataTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="dataThree != null">
+        #{dataThree,jdbcType=VARCHAR},
+      </if>
+      <if test="dataFour != null">
+        #{dataFour,jdbcType=VARCHAR},
+      </if>
+      <if test="dataFive != null">
+        #{dataFive,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSix != null">
+        #{dataSix,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSeven != null">
+        #{dataSeven,jdbcType=VARCHAR},
+      </if>
+      <if test="dataEight != null">
+        #{dataEight,jdbcType=VARCHAR},
+      </if>
+      <if test="dataNine != null">
+        #{dataNine,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTen != null">
+        #{dataTen,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.app.admin.server.bean.AppDataManager">
+    update app_data_manager
+    <set>
+      <if test="dataOne != null">
+        data_one = #{dataOne,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTwo != null">
+        data_two = #{dataTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="dataThree != null">
+        data_three = #{dataThree,jdbcType=VARCHAR},
+      </if>
+      <if test="dataFour != null">
+        data_four = #{dataFour,jdbcType=VARCHAR},
+      </if>
+      <if test="dataFive != null">
+        data_five = #{dataFive,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSix != null">
+        data_six = #{dataSix,jdbcType=VARCHAR},
+      </if>
+      <if test="dataSeven != null">
+        data_seven = #{dataSeven,jdbcType=VARCHAR},
+      </if>
+      <if test="dataEight != null">
+        data_eight = #{dataEight,jdbcType=VARCHAR},
+      </if>
+      <if test="dataNine != null">
+        data_nine = #{dataNine,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTen != null">
+        data_ten = #{dataTen,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>
