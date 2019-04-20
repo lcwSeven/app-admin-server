@@ -28,7 +28,7 @@
   <select id="select" parameterType="com.app.admin.server.bean.AppDataManager" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from app_data_manager ORDER BY id DESC
+    from app_data_manager
    <where>
       <if test="id != null">
         and id = #{id}
@@ -64,6 +64,7 @@
         and data_ten=#{dataTen}
       </if>
    </where>
+    ORDER BY id DESC
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from app_data_manager

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.admin.server.dao.AppPictureMapper">
+  <resultMap id="BaseResultMap" type="com.app.admin.server.bean.AppPicture">
+    <id column="picture_id" jdbcType="INTEGER" property="pictureId" />
+    <result column="picture_url" jdbcType="VARCHAR" property="pictureUrl" />
+    <result column="picture_name" jdbcType="VARCHAR" property="pictureName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    picture_id, picture_url, picture_name, remark, update_by
+  </sql>
+  <select id="select" parameterType="com.app.admin.server.bean.AppPicture" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from app_picture
+    <where>
+      <if test="pictureId != null">
+        and picture_id = #{pictureId}
+      </if>
+      <if test="pictureUrl != null">
+        and picture_url = #{pictureUrl}
+      </if>
+      <if test="pictureName != null">
+        and picture_name =  #{pictureName}
+      </if>
+      <if test="remark != null">
+        and remark =  #{remark}
+      </if>
+      <if test="updateBy != null">
+        and update_by =  #{updateBy}
+      </if>
+    </where>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from app_picture
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from app_picture
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.app.admin.server.bean.AppPicture">
+    insert into app_picture
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pictureId != null">
+        picture_id,
+      </if>
+      <if test="pictureUrl != null">
+        picture_url,
+      </if>
+      <if test="pictureName != null">
+        picture_name,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pictureId != null">
+        #{pictureId,jdbcType=INTEGER},
+      </if>
+      <if test="pictureUrl != null">
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureName != null">
+        #{pictureName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.app.admin.server.bean.AppPicture">
+    update app_picture
+    <set>
+      <if test="pictureUrl != null">
+        picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureName != null">
+        picture_name = #{pictureName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

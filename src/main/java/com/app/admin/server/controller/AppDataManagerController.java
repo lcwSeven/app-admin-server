@@ -5,10 +5,8 @@ import com.app.admin.server.bean.ServerResponse;
 import com.app.admin.server.service.AppDataManagerService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author: liucaiwen
