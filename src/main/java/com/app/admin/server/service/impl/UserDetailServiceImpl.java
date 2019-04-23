@@ -67,7 +67,7 @@ public class UserDetailServiceImpl implements UserDetailService {
     private ServerResponse verifyUser(AppUser appUser) {
         //获取用户名
         if (appUserMapper.loadUserByUsername(appUser.getUsername()) != null) {
-            throw new BusinessException("");
+            throw new BusinessException("用户已存在！");
         }
         return ServerResponse.buildBySuccess();
     }

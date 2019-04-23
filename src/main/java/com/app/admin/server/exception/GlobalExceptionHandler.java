@@ -25,10 +25,6 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ServerResponse handlerResponseException(Throwable e) {
         logger.error("系统异常！", e);
-        if (e instanceof BusinessException) {
-            ResponseEnum responseEnum = ((BusinessException) e).getResponseEnum();
-            return ServerResponse.buildByEnum(responseEnum);
-        }
         return ServerResponse.buildByErrorMsg(e.getMessage());
     }
 
