@@ -2,22 +2,17 @@
 bin=`dirname "$0"`
 APP_HOME=`cd "$bin"/..; pwd`
 PG_NAME=default-main-name.jar
-
 JAVA_OPTS='-server -Xms4096m -Xmx4096m -XX:+HeapDumpOnOutOfMemoryError'
-
-#print out env properties
+#输出环境变量
 echo \$SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
 echo \$JAVA_OPTS=$JAVA_OPTS
 
-#export config center address
+#判断环境变量是否为空
 if [ -z "${SPRING_PROFILES_ACTIVE}" ];then
     echo "ERROR:SPRING_PROFILES_ACTIVE is not set,must be dev,test or prod."
     exit 1
 fi
-
-#read enviroment parameter and export, for easy debug usage
-#CONF_ENV_FILE="$APP_HOME/bin/config-${SPRING_PROFILES_ACTIVE}.env"
-#source "$CONF_ENV_FILE"
+#使用
 function print_usage(){
     echo " "
     echo "Usage:$PRG_NAME COMMAND"
@@ -41,7 +36,6 @@ do
     echo \$PRG_NAME=${jar}
 done
 
-#some java parameters
 if [ "$JAVA_HOME" != "" ];then
     # echo "run java in $JAVA_HOME"
     JAVA_HOME=$JAVA_HOME
