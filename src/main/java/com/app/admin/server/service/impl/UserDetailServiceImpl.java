@@ -2,7 +2,6 @@ package com.app.admin.server.service.impl;
 
 import com.app.admin.server.bean.AppUser;
 import com.app.admin.server.bean.ServerResponse;
-import com.app.admin.server.constant.ResponseEnum;
 import com.app.admin.server.dao.AppUserMapper;
 import com.app.admin.server.exception.BusinessException;
 import com.app.admin.server.service.UserDetailService;
