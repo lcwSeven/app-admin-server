@@ -4,12 +4,12 @@ APP_HOME=`cd "$bin"/..; pwd`
 PG_NAME=default-main-name.jar
 JAVA_OPTS='-server -Xms4096m -Xmx4096m -XX:+HeapDumpOnOutOfMemoryError'
 #输出环境变量
-echo \$SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+echo \$ENV_ACTIVE=${ENV_ACTIVE}
 echo \$JAVA_OPTS=$JAVA_OPTS
 
 #判断环境变量是否为空
-if [ -z "${SPRING_PROFILES_ACTIVE}" ];then
-    echo "ERROR:SPRING_PROFILES_ACTIVE is not set,must be dev,test or prod."
+if [ -z "${ENV_ACTIVE}" ];then
+    echo "ERROR:ENV_ACTIVE is not set,must be dev,test or prod."
     exit 1
 fi
 #使用
@@ -66,15 +66,15 @@ for jar in "$APP_HOME"/target/lib/*.jar
     do CLASSPATH=${CLASSPATH}:${jar}
 done
 
-echo "log config path:" $APP_HOME/config/log4j2-$SPRING_PROFILES_ACTIVE.xml
+echo "log config path:" $APP_HOME/config/log4j2-$ENV_ACTIVE.xml
 
 function start(){
     RUNNING=`ps -ef|grep $PRG_NAME|grep -v grep|awk '{print $2}'`
     if [ -n "$RUNNING" ]; then
         echo "$PRG_NAME is running! $RUNNING"
     else
-        echo "nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar $PRG_NAME --spring.config.location=$APP_HOME/config --logging.config=$APP_HOME/config/log4j2-$SPRING_PROFILES_ACTIVE.xml &"
-        exec nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar $PRG_NAME --spring.config.location=$APP_HOME/config --logging.config=$APP_HOME/config/log4j2-$SPRING_PROFILES_ACTIVE.xml>/dev/null 2>&1
+        echo "nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar $PRG_NAME --spring.config.location=$APP_HOME/config --logging.config=$APP_HOME/config/log4j2-$ENV_ACTIVE.xml &"
+        exec nohup $JAVA_HOME/bin/java $JAVA_OPTS -jar $PRG_NAME --spring.config.location=$APP_HOME/config --logging.config=$APP_HOME/config/log4j2-$ENV_ACTIVE.xml>/dev/null 2>&1
         if [ $? -eq 0 ];then
             echo "$PRG_NAME start success"
         else
