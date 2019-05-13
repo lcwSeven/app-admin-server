@@ -1,12 +1,12 @@
-#ÈÕÖ¾ÅäÖÃ
+#æ—¥å¿—é…ç½®
 logging:
   config: classpath:config/log4j2-dev.xml
   level: info
-#mybatis ÅäÖÃ
+#mybatis é…ç½®
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: com.app.admin.server.bean
-#mysqlÅäÖÃ
+#mysqlé…ç½®
 spring:
   datasource:
     username: root
