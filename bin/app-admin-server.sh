@@ -2,7 +2,7 @@
 bin=`dirname "$0"`
 APP_HOME=`cd "$bin"/..; pwd`
 PG_NAME=default-main-name.jar
-JAVA_OPTS='-server -Xms4096m -Xmx4096m -XX:+HeapDumpOnOutOfMemoryError'
+JAVA_OPTS='-server -Xms1024m -Xmx1024m -XX:+HeapDumpOnOutOfMemoryError'
 #输出环境变量
 echo \$ENV_ACTIVE=${ENV_ACTIVE}
 echo \$JAVA_OPTS=$JAVA_OPTS
